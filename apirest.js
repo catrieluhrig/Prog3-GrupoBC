@@ -16,6 +16,6 @@ app.get("/", (req, res) => {
 process.loadEnvFile()
 const PUERTO = process.env.PUERTO
 
-app.listen("PUERTO" || 3000, () => {
+app.listen(PUERTO || 3000, () => {
     console.log("Servidor iniciado en puerto 3000")
 })
