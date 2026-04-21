@@ -1,0 +1,23 @@
+{
+  "name": "prog3",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/catrieluhrig/Prog3-GrupoBC#readme",
+  "bugs": {
+    "url": "https://github.com/catrieluhrig/Prog3-GrupoBC/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/catrieluhrig/Prog3-GrupoBC.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "apirest.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
