@@ -77,6 +77,30 @@ app.put("/especialidades/:id_especialidad", [
     }
 })
 
+app.delete("/especialidades/:id_especialidad", [], async (req, res) => {
+    try{
+        const id_especialidad = req.params.id_especialidad
+        //Validar que la id pasada por parámetro exista/esté activa
+        const especialidadesActivas = "SELECT * FROM especialidades WHERE activo = 1 AND id_especialidad = ?"
+        const [especialidades, fields] = await pool.execute(especialidadesActivas, [id_especialidad]);
+        if(especialidades.length === 0){
+            return res.status(404).send({
+                "status": "HTTP 404",
+                "msg": "Especialidad no encontrada"
+            })
+        }
+
+        const query = "UPDATE especialidades SET activo = 0 WHERE id_especialidad = ?"
+        const result = await pool.execute(query, [id_especialidad])
+        res.status(200).send({
+            "status": "200",
+            "msg": "Especialidad eliminada con exito"
+        })
+    }catch(error){
+        console.log("Error al borrar la especialidad: ", error)
+    }
+})
+
 process.loadEnvFile()
 const PUERTO = process.env.PUERTO
 
