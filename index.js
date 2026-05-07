@@ -4,6 +4,8 @@
 import express from "express";
 import { pool } from "./DB_TEST/conexion-sql.js"
 import { testDB } from "./DB_TEST/test_db.js"
+import { validar } from "./middlewares/middleware.js"
+import { check } from "express-validator"
 
 const app = express();
 app.use(express.json());
@@ -18,21 +20,26 @@ app.get("/", (req, res) => {
     })
 })
 
-app.post("/especialidades", async (req, res) => {
-    try{
-        const { nombre } = req.body
-        const query = "INSERT INTO especialidades (nombre) VALUES (?)"
-        const [result] = await pool.execute(query, [nombre]) //El segundo parametro de execute() debe ser un array
-        res.status(201).send({
-            "status": "HTTP 201",
-            "msg": "Especialidad insertada correctamente"
-        })
-    } 
-    catch(error){
-        console.log("Error de red al insertar especialidad: ", error)
-    }
-    
-})
+app.post("/especialidades", [
+    check("nombre")
+    .notEmpty("El nombre no puede estar vacío"),
+    validar
+    ],
+    async (req, res) => {
+        try{
+            const { nombre } = req.body
+            const query = "INSERT INTO especialidades (nombre) VALUES (?)"
+            const [result] = await pool.execute(query, [nombre]) //El segundo parametro de execute() debe ser un array
+            res.status(201).send({
+                "status": "HTTP 201",
+                "msg": "Especialidad insertada correctamente"
+            })
+        } 
+        catch(error){
+            console.log("Error de red al insertar especialidad: ", error)
+        }
+        
+    })
 
 process.loadEnvFile()
 const PUERTO = process.env.PUERTO
