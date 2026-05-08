@@ -1,14 +1,14 @@
 import express  from 'express';
 import { body } from "express-validator";
 import { param } from "express-validator";
-import { validar } from "../middlewares/middleware.js";
+import { validar } from "../../middlewares/middleware.js";
 import {
     buscarEspecialidades,
     buscarEspecialidadPorId,
     crearEspecialidad,
     actualizarEspecialidad,
     eliminarEspecialidad
-} from "../controllers/controllerEspecialidades.js";
+} from "../../controllers/controllerEspecialidades.js";
 
 const router = express.Router();
 
