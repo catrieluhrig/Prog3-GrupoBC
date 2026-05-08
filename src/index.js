@@ -4,7 +4,6 @@
 import express from "express";
 import { pool } from "./database/conexion-sql.js";
 import { testDB } from "./database/test_db.js";
-import { param } from "express-validator";
 import { router } from "./routes/especialidadesRutas.js"
 
 const app = express();
