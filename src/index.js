@@ -3,12 +3,12 @@
 
 import express from "express";
 import { pool } from "./database/conexion-sql.js";
-import { router } from "./routes/especialidadesRutas.js"
+import { router as v1EspecialidadesRoutes } from "./routes/v1/especialidadesRutas.js"
 
 const app = express();
 app.use(express.json());
 
-app.use("/especialidades", router);
+app.use("/api/v1/especialidades", v1EspecialidadesRoutes);
 
 process.loadEnvFile();
 const PUERTO = process.env.PUERTO;
