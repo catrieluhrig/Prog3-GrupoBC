@@ -7,13 +7,13 @@ import {
 } from "../database/especialidades.js";
 
 export const getAllEspecialidades = async () => {
-    const rows = await fetchEspecialidades();
-    return rows;
+    const result = await fetchEspecialidades();
+    return result;
 };
 
 export const getEspecialidadById = async (id) => {
-    const rows = await fetchEspecialidadById(id);
-    return rows;
+    const result = await fetchEspecialidadById(id);
+    return result;
 };
 
 export const createEspecialidad = async (nombre) => {

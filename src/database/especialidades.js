@@ -10,10 +10,6 @@ export const fetchEspecialidades = async() => {
     return rows;
 }
 
-export const fetchEspecialidadesActivas = async(id) => {
-    const query = "SELECT * FROM especialidades WHERE activo = 1 AND id_especialidad = ?";
-}
-
 export const fetchEspecialidadById = async(id) => {
     const query = "SELECT * FROM especialidades WHERE activo = 1 AND id_especialidad = ?";
     const [rows] = await pool.execute(query, [id]);
