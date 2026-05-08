@@ -3,20 +3,10 @@
 
 import express from "express";
 import { pool } from "./database/conexion-sql.js";
-import { testDB } from "./database/test_db.js";
 import { router } from "./routes/especialidadesRutas.js"
 
 const app = express();
 app.use(express.json());
-
-//await testDB();
-
-app.get("/", (req, res) => {
-    res.status(200).send({
-        "status": "HTTP 200 OK",
-        "msg": "request completada"
-    })
-})
 
 app.use("/especialidades", router);
 
