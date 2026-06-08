@@ -12,7 +12,7 @@ import { router as v1MedicosRoutes } from "./routes/v1/medicosRutas.js"
 const app = express();
 app.use(express.json());
 
-const logStream = fs.createWriteStream("./accesslog", { flags: "a"});
+const logStream = fs.createWriteStream("./access.log", { flags: "a"});
 app.use(morgan("dev"));
 app.use(morgan("combined", {stream: logStream}));
 
