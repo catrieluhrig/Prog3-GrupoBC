@@ -34,11 +34,19 @@ export const updateObraSocialById = async(id, obraSocial) => {
         }
     })
 
-    if (!fields.length) return null
+    if (!fields.length){
+        return null
+    } 
 
     const query = `UPDATE obras_sociales SET ${fields.join(', ')} WHERE id_obra_social = ?`
     values.push(id)
 
     const [result] = await pool.execute(query, values)
+    return result
+}
+
+export const deleteObraSocialById = async(id) => {
+    const query = "UPDATE obras_sociales SET activo = 0 WHERE id_obra_social = ?"
+    const [result] = await pool.execute(query, [id])
     return result
 }
