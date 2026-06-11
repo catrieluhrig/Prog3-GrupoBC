@@ -8,12 +8,18 @@ export const fetchMedicos = async() => {
     return rows;
 }
 
+export const fetchMedicoById = async (id) => {
+    const query = `SELECT * FROM medicos WHERE id_medico = ?`
+    const [rows] = await pool.execute(query, [id])
+    return rows
+}
+
 export const asociarObraSocial = async(id, obrasSociales) => {
     const conexion = await pool.getConnection();
     try{
             await conexion.beginTransaction();
             for(const obra of obrasSociales){
-                const sql = `INSERT INTO medicos_obras_sociales (id_medico, id_obra_social) VALUES (?,?);`
+                const query = `INSERT INTO medicos_obras_sociales (id_medico, id_obra_social) VALUES (?,?);`
                 await conexion.execute(sql, [id, obra.id_obra_social]);
             }   
 

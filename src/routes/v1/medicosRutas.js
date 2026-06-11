@@ -4,12 +4,20 @@ import { param } from "express-validator";
 import { validar } from "../../middlewares/middleware.js";
 import {
     buscarMedicos,
+    buscarMedicoPorId,
     asociarMedicosObrasSociales
 } from "../../controllers/controllerMedicos.js";
 
 const router = express.Router();
 
 router.get('/', buscarMedicos);
+
+router.get('/:id', [
+        param("id").isInt().withMessage("El id debe ser un numero entero"),
+        validar
+    ],
+    buscarMedicoPorId
+);
 
 router.post("/:id/obras-sociales",
      [
