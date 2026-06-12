@@ -2,8 +2,10 @@ import express  from 'express';
 import { body } from "express-validator";
 import { param } from "express-validator";
 import { validar } from "../../middlewares/middleware.js";
+import { autorizarRoles } from "../../middlewares/autorizarRoles.js";
 import {
-    crearTurnos
+    crearTurnos,
+    buscarTurnos
 } from "../../controllers/controllerTurnos.js";
 
 const router = express.Router()
@@ -19,7 +21,10 @@ router.post( "/",
         body("fecha_hora")
             .notEmpty().withMessage("La fecha_hora es obligatoria")
     ],
+    autorizarRoles([3]),
     crearTurnos
 )
+
+router.get("/", autorizarRoles([1,2]), buscarTurnos)
 
 export { router }

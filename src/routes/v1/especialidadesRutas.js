@@ -2,6 +2,7 @@ import express  from 'express';
 import { body } from "express-validator";
 import { param } from "express-validator";
 import { validar } from "../../middlewares/middleware.js";
+import { autorizarRoles } from "../../middlewares/autorizarRoles.js";
 import {
     buscarEspecialidades,
     buscarEspecialidadPorId,
@@ -12,7 +13,7 @@ import {
 
 const router = express.Router();
 
-router.get('/', buscarEspecialidades);
+router.get('/', autorizarRoles([2,3]), buscarEspecialidades);
 
 router.get("/:id",
     [

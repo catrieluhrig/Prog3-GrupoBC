@@ -1,5 +1,6 @@
 import {
-    insertTurno
+    insertTurno,
+    getTurnos
 } from "../services/serviceTurnos.js";
 
 export const crearTurnos = async (req, res) => {
@@ -9,7 +10,7 @@ export const crearTurnos = async (req, res) => {
         const turno = await insertTurno(data);
         res.status(201).send({
             "status": true,
-            "msg": turno
+            "msg": "Turno creado correctamente: ", turno
         })
     } catch (error) {
         console.log(error);
@@ -17,5 +18,21 @@ export const crearTurnos = async (req, res) => {
             "status": false,
             "error": error.message
          });
+    }
+}
+
+export const buscarTurnos = async (req, res) => {
+    try{
+        const usuario = req.user
+        const turnos = await getTurnos(usuario)
+        res.status(200).send({
+            "status": true,
+            "msg": turnos
+        })
+    }catch (error) {
+        res.status(500).send({
+            "status": false,
+            "error": error.message
+        })
     }
 }
