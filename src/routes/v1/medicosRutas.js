@@ -2,21 +2,33 @@ import express  from 'express';
 import { body } from "express-validator";
 import { param } from "express-validator";
 import { validar } from "../../middlewares/middleware.js";
+import { autorizarRoles } from "../../middlewares/autorizarRoles.js";
 import {
     buscarMedicos,
     buscarMedicoPorId,
+    buscarMedicosPorEspecialidad,
     asociarMedicosObrasSociales
 } from "../../controllers/controllerMedicos.js";
 
 const router = express.Router();
 
-router.get('/', buscarMedicos);
+router.get('/', autorizarRoles([2]), buscarMedicos);
 
 router.get('/:id', [
         param("id").isInt().withMessage("El id debe ser un numero entero"),
         validar
     ],
+    autorizarRoles([2]),
     buscarMedicoPorId
+);
+
+router.get('/especialidades/:id_especialidad', [
+        param("id_especialidad")
+            .isInt().withMessage("El id_especialidad debe ser un numero entero"),
+        validar
+    ],
+    autorizarRoles([2]),
+    buscarMedicosPorEspecialidad
 );
 
 router.post("/:id/obras-sociales",

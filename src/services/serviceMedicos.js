@@ -1,11 +1,17 @@
 import {
     fetchMedicos,
     fetchMedicoById,
+    fetchMedicosByEspecialidad,
     asociarObraSocial
 } from "../database/medicos.js";
 
 export const getAllMedicos = async() =>{
     const result = await fetchMedicos()
+    return result;
+}
+
+export const getMedicosByEspecialidad = async(id_especialidad) => {
+    const result = await fetchMedicosByEspecialidad(id_especialidad);
     return result;
 }
 

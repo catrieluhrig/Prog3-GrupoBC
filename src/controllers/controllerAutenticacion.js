@@ -38,26 +38,3 @@ export const autenticar = (req, res, next) => {
         }
     )(req, res, next);
 };
-
-/*export const autenticar = async (req, res) => {
-    passport.authenticate("local", {session: false}, (error,usuario,info) => {
-    if (error || !usuario) {
-        return res.status(400).json({
-            status: false,
-            msg: error 
-        })
-    }
-    req.login(usuario, {session: false}, error => {
-        if (error){
-            res.send(error)
-        }
-        
-        const token = jwt.sign(usuario, process.env.SECRETA)
-        return res.json({
-            status: true,
-            token: token
-        })
-        })
-    }
-    )
-}*/

@@ -1,6 +1,7 @@
 import { turnoReserva } from "../database/turnos.js";
 import { turnosDeUnMedico } from "../database/turnos.js";
 import { turnosDeUnPaciente } from "../database/turnos.js";
+import { marcarComoAtendido } from "../database/turnos.js";
 import { fetchMedicoById } from "../database/medicos.js";
 import { fetchPacienteById } from "../database/pacientes.js";
 import { fetchObraSocialById } from "../database/obrasSociales.js";
@@ -32,4 +33,8 @@ export const getTurnos = async(usuario) => {
     }else{
         return turnosDeUnPaciente(usuario.id_usuario)
     }
+}
+
+export const marcarTurnoAtendido = async(atendido, id_turno_reserva, id_usuario) => {
+    return marcarComoAtendido(atendido, id_turno_reserva, id_usuario)
 }

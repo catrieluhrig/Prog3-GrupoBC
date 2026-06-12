@@ -5,7 +5,8 @@ import { validar } from "../../middlewares/middleware.js";
 import { autorizarRoles } from "../../middlewares/autorizarRoles.js";
 import {
     crearTurnos,
-    buscarTurnos
+    buscarTurnos,
+    atenderTurnos
 } from "../../controllers/controllerTurnos.js";
 
 const router = express.Router()
@@ -23,6 +24,16 @@ router.post( "/",
     ],
     autorizarRoles([3]),
     crearTurnos
+)
+
+router.put( "/:id/atendido",
+    [
+        body("atendido")
+            .notEmpty().withMessage("Debe indicar si el turno fue atendido")
+            .isNumeric().withMessage("Debe indicar si el turno fue atendido con 1 o 0"),
+    ],
+    autorizarRoles([1]),
+    atenderTurnos
 )
 
 router.get("/", autorizarRoles([1,2]), buscarTurnos)

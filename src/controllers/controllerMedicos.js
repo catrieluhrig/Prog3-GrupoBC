@@ -1,6 +1,7 @@
 import {
     getAllMedicos,
     getMedicoById,
+    getMedicosByEspecialidad,
     relacionarConObraSocial
 } from "../services/serviceMedicos.js";
 
@@ -24,6 +25,23 @@ export const buscarMedicoPorId = async (req, res) => {
     try {
         const id = req.params.id
         const medicos = await getMedicoById(id);
+        res.status(200).send({
+            "status": true,
+            "msg": medicos
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            "status": false,
+            "error": error.message
+         });
+    }
+}
+
+export const buscarMedicosPorEspecialidad = async (req, res) => {
+    try {
+        const id_especialidad = req.params.id_especialidad || req.params.id;
+        const medicos = await getMedicosByEspecialidad(id_especialidad);
         res.status(200).send({
             "status": true,
             "msg": medicos

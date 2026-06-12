@@ -29,8 +29,14 @@ export const turnosDeUnPaciente = async (id_usuario) => {
     return rows
 }
 
-export const marcarComoAtendido = async (id_turno_reserva) => {
-    const query = "UPDATE SET atentido = 1 WHERE id_turno_reserva ? AND activo = 1"
-    const [rows] = await pool.execute(query, [id_turno_reserva])
+export const marcarComoAtendido = async (atendido, id_turno_reserva, id_usuario) => {
+    //Modificar el atributo "atendido" si el turno especificado pertenece al médico que está logueado
+    const query = `UPDATE turnos_reservas tr 
+                    INNER JOIN medicos m 
+                    ON m.id_medico = tr.id_medico 
+                    SET atentido = ? 
+                    WHERE tr.id_turno_reserva = ? 
+                    AND m.id_usuario = ?`
+    const [rows] = await pool.execute(query, [atendido, id_turno_reserva, id_usuario])
     return rows
 }

@@ -14,6 +14,17 @@ export const fetchMedicoById = async (id) => {
     return rows
 }
 
+export const fetchMedicosByEspecialidad = async (id_especialidad) => {
+    const query = `SELECT m.id_medico,
+                    CONCAT(u.nombres, ' ', u.apellido) AS medico
+                    FROM medicos AS m
+                    INNER JOIN usuarios AS u
+                    ON u.id_usuario = m.id_usuario
+                    WHERE m.id_especialidad = ?;`
+    const [rows] = await pool.execute(query, [id_especialidad]);
+    return rows;
+}
+
 export const asociarObraSocial = async(id, obrasSociales) => {
     const conexion = await pool.getConnection();
     try{
