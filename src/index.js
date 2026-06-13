@@ -27,7 +27,7 @@ app.use(morgan("combined", {stream: logStream}));
 app.use("/api/v1/especialidades", passport.authenticate('jwt', {session:false}), v1EspecialidadesRoutes);
 app.use("/api/v1/obras-sociales", v1ObrasSocialesRoutes)
 app.use("/api/v1/medicos", passport.authenticate('jwt', {session:false}), v1MedicosRoutes)
-app.use("/api/v1/pacientes", v1PacientesRoutes)
+app.use("/api/v1/pacientes", passport.authenticate('jwt', {session:false}), v1PacientesRoutes)
 app.use("/api/v1/turnos-reservas", passport.authenticate('jwt', {session:false}), v1TurnosRoutes)
 app.use("/api/v1/auth", v1AutenticacionRoutes)
 

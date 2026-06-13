@@ -2,7 +2,8 @@ import {
     fetchMedicos,
     fetchMedicoById,
     fetchMedicosByEspecialidad,
-    asociarObraSocial
+    asociarObraSocial,
+    asociarEspecialidad
 } from "../database/medicos.js";
 
 export const getAllMedicos = async() =>{
@@ -22,5 +23,10 @@ export const getMedicoById = async(id) =>{
 
 export const relacionarConObraSocial = async(id, obrasSociales) =>{
     const result = await asociarObraSocial(id, obrasSociales)
+    return result;
+}
+
+export const relacionarConEspecialidad = async(id_medico, id_especialidad) => {
+    const result = await asociarEspecialidad(id_medico, id_especialidad)
     return result;
 }

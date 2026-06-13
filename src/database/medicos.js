@@ -31,8 +31,8 @@ export const asociarObraSocial = async(id, obrasSociales) => {
             await conexion.beginTransaction();
             for(const obra of obrasSociales){
                 const query = `INSERT INTO medicos_obras_sociales (id_medico, id_obra_social) VALUES (?,?);`
-                await conexion.execute(sql, [id, obra.id_obra_social]);
-            }   
+                await conexion.execute(query, [id, obra.id_obra_social]);
+            }
 
             await conexion.commit();
             await conexion.release();
@@ -45,4 +45,10 @@ export const asociarObraSocial = async(id, obrasSociales) => {
             return false;
         }
 
+}
+
+export const asociarEspecialidad = async(id_medico, id_especialidad) => {
+    const query = "UPDATE medicos SET id_especialidad = ? WHERE id_medico = ?";
+    const [rows] = await pool.execute(query, [id_especialidad, id_medico]);
+    return rows;
 }

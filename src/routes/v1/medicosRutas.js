@@ -7,7 +7,8 @@ import {
     buscarMedicos,
     buscarMedicoPorId,
     buscarMedicosPorEspecialidad,
-    asociarMedicosObrasSociales
+    asociarMedicosObrasSociales,
+    asociarMedicosEspecialidades
 } from "../../controllers/controllerMedicos.js";
 
 const router = express.Router();
@@ -44,5 +45,19 @@ router.post("/:id/obras-sociales",
 
     ], asociarMedicosObrasSociales
 )
+
+router.put("/:id_medico/especialidades",
+     [
+        param("id_medico")
+            .notEmpty().withMessage("El id del médico es obligatorio")
+            .isInt().withMessage("El id debe ser un numero entero"),
+        body("id_especialidad")
+            .notEmpty().withMessage("El id de especialidad es obligatorio")
+            .isInt().withMessage("El id de especialidad debe ser un valor numerico"),
+        validar
+
+    ],
+    autorizarRoles([3]),
+    asociarMedicosEspecialidades)
 
 export { router };
