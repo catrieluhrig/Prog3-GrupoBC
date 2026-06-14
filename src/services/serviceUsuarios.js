@@ -1,6 +1,7 @@
 import {
     fetchUsuario,
-    fetchUsuarioById
+    fetchUsuarioById,
+    actualizarFotoPerfilUsuarioDB
 } from "../database/usuarios.js";
 
 export const getUsuario = async (email, password) => {
@@ -11,4 +12,8 @@ export const getUsuario = async (email, password) => {
 export const getUsuarioById = async (id) => {
     const result = await fetchUsuarioById(id);
     return result;
+};
+
+export const actualizarFotoPerfilUsuario = async (idUsuario, fotoPath) => {
+    return await actualizarFotoPerfilUsuarioDB(idUsuario, fotoPath);
 };

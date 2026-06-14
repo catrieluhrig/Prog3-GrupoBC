@@ -13,6 +13,7 @@ import { router as v1MedicosRoutes } from "./routes/v1/medicosRutas.js"
 import { router as v1PacientesRoutes } from "./routes/v1/pacientesRutas.js"
 import { router as v1TurnosRoutes } from "./routes/v1/turnosRutas.js"
 import { router as v1AutenticacionRoutes } from "./routes/v1/autenticacionRutas.js"
+import { router as v1UsuariosRoutes } from "./routes/v1/usuariosRutas.js"
 
 const app = express();
 app.use(express.json());
@@ -30,6 +31,7 @@ app.use("/api/v1/medicos", passport.authenticate('jwt', {session:false}), v1Medi
 app.use("/api/v1/pacientes", passport.authenticate('jwt', {session:false}), v1PacientesRoutes)
 app.use("/api/v1/turnos-reservas", passport.authenticate('jwt', {session:false}), v1TurnosRoutes)
 app.use("/api/v1/auth", v1AutenticacionRoutes)
+app.use("/api/v1/usuarios", passport.authenticate('jwt', {session:false}), v1UsuariosRoutes)
 
 process.loadEnvFile();
 const PUERTO = process.env.PUERTO;

@@ -15,3 +15,14 @@ export const fetchUsuario = async(email, password) => {
     const [rows] = await pool.execute(query, [email, password]);
     return rows[0] || null;
 }
+
+export const actualizarFotoPerfilUsuarioDB = async (idUsuario, fotoPath) => {
+    const query = "UPDATE usuarios SET foto_path = ? WHERE id_usuario = ? AND activo = 1";
+    const [result] = await pool.execute(query, [fotoPath, idUsuario]);
+
+    if (result.affectedRows === 0) {
+        throw new Error("Usuario no encontrado o inactivo");
+    }
+
+    return result;
+}
