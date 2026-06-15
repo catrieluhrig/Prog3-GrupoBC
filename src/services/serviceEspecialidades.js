@@ -23,10 +23,18 @@ export const createEspecialidad = async (nombre) => {
 
 export const updateEspecialidad = async (id, nombre) => {
     const result = await updateEspecialidadById(id, nombre);
+    const especialidadActiva = await getEspecialidadById(id)
+    if(especialidadActiva.length === 0){
+        return null;
+    }
     return result;
 };
 
 export const deleteEspecialidad = async (id) => {
     const result = await deleteEspecialidadById(id);
+    const especialidadActiva = await getEspecialidadById(id)
+    if(especialidadActiva.length === 0){
+        return null;
+    }
     return result;
 };

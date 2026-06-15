@@ -1,7 +1,7 @@
 import { pool } from "./conexion-sql.js";
     
 export const fetchEspecialidades = async() => {
-    const [rows] = await pool.query(`
+    const [rows] = await pool.execute(`
         SELECT *
         FROM especialidades
         WHERE activo = 1
