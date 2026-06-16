@@ -8,6 +8,35 @@ import { actualizarFotoPerfil } from "../../controllers/controllerUsuarios.js";
 const router = express.Router();
 const upload = multer({ storage });
 
+/**
+ * @swagger
+ * /api/v1/usuarios/{id_usuario}/foto:
+ *   put:
+ *     summary: Actualizar foto de perfil de usuario
+ *     tags:
+ *       - Usuarios
+ *     parameters:
+ *       - in: path
+ *         name: id_usuario
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               foto:
+ *                 type: string
+ *                 format: binary
+ *             required:
+ *               - foto
+ *     responses:
+ *       200:
+ *         description: Foto actualizada
+ */
 router.put(
   "/:id_usuario/foto",
   [

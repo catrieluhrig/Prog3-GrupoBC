@@ -4,6 +4,9 @@
 import express from "express";
 import morgan from "morgan";
 import fs from "fs"
+import swaggerUi from "swagger-ui-express";
+import cors from "cors";
+import { swaggerSpec } from "./docs/swagger.js";
 import { pool } from "./database/conexion-sql.js";
 import passport from "passport"
 import { estrategia, validarToken } from './config/passport.js';
@@ -18,22 +21,31 @@ import { router as v1ReportesRoutes } from "./routes/v1/reportesRutas.js"
 
 const app = express();
 app.use(express.json());
+
+app.use(cors());
+
 passport.use(estrategia);
 passport.use(validarToken);
 app.use(passport.initialize());
+
+app.use(
+    "/docs",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerSpec)
+);
 
 const logStream = fs.createWriteStream("./access.log", { flags: "a"});
 app.use(morgan("dev"));
 app.use(morgan("combined", {stream: logStream}));
 
 app.use("/api/v1/especialidades", passport.authenticate('jwt', {session:false}), v1EspecialidadesRoutes);
-app.use("/api/v1/obras-sociales", v1ObrasSocialesRoutes)
+app.use("/api/v1/obras-sociales", passport.authenticate('jwt', {session:false}), v1ObrasSocialesRoutes)
 app.use("/api/v1/medicos", passport.authenticate('jwt', {session:false}), v1MedicosRoutes)
 app.use("/api/v1/pacientes", passport.authenticate('jwt', {session:false}), v1PacientesRoutes)
 app.use("/api/v1/turnos-reservas", passport.authenticate('jwt', {session:false}), v1TurnosRoutes)
 app.use("/api/v1/auth", v1AutenticacionRoutes)
 app.use("/api/v1/usuarios", passport.authenticate('jwt', {session:false}), v1UsuariosRoutes)
-app.use("/api/v1/reportes", v1ReportesRoutes)
+app.use("/api/v1/reportes", passport.authenticate('jwt', {session:false}), v1ReportesRoutes)
 
 process.loadEnvFile();
 const PUERTO = process.env.PUERTO;

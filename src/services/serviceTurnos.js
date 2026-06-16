@@ -17,7 +17,7 @@ export const insertTurno = async (data) => {
     if(obraSocial[0].es_particular === 0){
         valorConsulta = valorConsulta - (porcentajeDescuento * valorConsulta)
         //Los registros de porcentaje_descuento de la base de datos fueron cambiados para esta formula a valores como 0.10 en vez de 10.00
-        //La formula si el porcentaje_descuento fuera 10 sería: valorConsulta * (1 - porcentaje_descuento / 100)
+        //La formula si el porcentaje_descuento fuera 10.00 sería: valorConsulta * (1 - porcentaje_descuento / 100)
     }
 
     console.log(medico[0].id_medico, paciente[0].id_paciente, obraSocial[0].id_obra_social, data.fecha_hora, valorConsulta)
