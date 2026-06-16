@@ -122,7 +122,9 @@ router.post("/:id/obras-sociales",
             .isInt().withMessage("Cada obra social debe tener id_obra_social numérico"),
         validar
 
-    ], asociarMedicosObrasSociales
+    ],
+    autorizarRoles([3]),
+    asociarMedicosObrasSociales
 )
 
 

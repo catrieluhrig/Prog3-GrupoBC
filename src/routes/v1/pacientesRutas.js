@@ -32,6 +32,7 @@ router.get("/:id",
         param("id").isInt().withMessage("El id debe ser un numero entero"),
         validar
     ],
+    autorizarRoles([3]),
     buscarPacientePorId
 )
 
