@@ -1,7 +1,7 @@
 import { pool } from "./conexion-sql.js";
 
 export const turnoReserva = async (id_medico, id_paciente, id_obra_social, fecha_hora, valor_total) => {
-    const query = `INSERT INTO turnos_reservas (id_medico, id_paciente, id_obra_social, fecha_hora, valor_total, atentido) VALUES (?,?,?,?,?)`;
+    const query = `INSERT INTO turnos_reservas (id_medico, id_paciente, id_obra_social, fecha_hora, valor_total, atentido) VALUES (?,?,?,?,?,?)`;
     const [rows] = await pool.execute(query, [id_medico, id_paciente, id_obra_social, fecha_hora, valor_total, 0 ]); 
     if (rows.affectedRows == 0){
         return null
