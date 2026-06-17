@@ -3,8 +3,8 @@ import {
     asociarObraSocial
 } from "../database/pacientes.js";
 
-export const getPacienteById = async () => {
-    const result = await fetchPacientesById();
+export const getPacienteById = async (id) => {
+    const result = await fetchPacienteById(id);
     return result;
 };
 

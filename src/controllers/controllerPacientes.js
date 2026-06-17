@@ -5,7 +5,8 @@ import {
 
 export const buscarPacientePorId = async (req, res) => {
     try {
-        const paciente = await getPacienteById();
+        const id = req.params.id;
+        const paciente = await getPacienteById(id);
         res.status(200).send({
             "status": true,
             "msg": paciente
