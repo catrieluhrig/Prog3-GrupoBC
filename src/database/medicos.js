@@ -9,7 +9,7 @@ export const fetchMedicos = async() => {
 }
 
 export const fetchMedicoById = async (id) => {
-    const query = `SELECT * FROM medicos WHERE id_medico = ?`
+    const query = `SELECT * FROM medicos WHERE id_medico = ? AND activo = 1`
     const [rows] = await pool.execute(query, [id])
     return rows
 }
@@ -20,7 +20,7 @@ export const fetchMedicosByEspecialidad = async (id_especialidad) => {
                     FROM medicos AS m
                     INNER JOIN usuarios AS u
                     ON u.id_usuario = m.id_usuario
-                    WHERE m.id_especialidad = ?;`
+                    WHERE m.id_especialidad = ? AND m.activo = 1;`
     const [rows] = await pool.execute(query, [id_especialidad]);
     return rows;
 }
